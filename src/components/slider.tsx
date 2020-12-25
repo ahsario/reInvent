@@ -40,7 +40,6 @@ const SliderWrap = styled.div`
     right: 35px;
   }
 `;
-const newArr = slidesData.map(slide =>{return ({...slide, display:'block'} )});
 interface IProps{
   head: string,
   text: string,
@@ -50,32 +49,27 @@ interface IProps{
 
 const Slider = () => {
 
+  const nextSlide = () => {
+    setCurrentSlide(() => currentSlide == arrSlides.length ? currentSlide = 1 : ++currentSlide);
+    setArrSlides(()=>slidesData.map(slide =>{return (slide.id == currentSlide ? {...slide, display:'block'} : {...slide, display:'none'} )}));
+    console.log(arrSlides);
+    console.log(currentSlide);
+  }
+  const prevSlide = () => {
+    setCurrentSlide(() => currentSlide == 1 ? currentSlide = arrSlides.length : --currentSlide);
+    setArrSlides(()=>slidesData.map(slide =>{return (slide.id == currentSlide ? {...slide, display:'block'} : {...slide, display:'none'} )}));
+   
+  }
   
-  const [arrSlides, setArrSlides] = useState(slidesData);
-  const SlidesComponent = arrSlides.map(slide => <Slide key={slide.id} head={slide.head} text={slide.text} btnText={slide.btnText} display='none'/>);
+  let [currentSlide, setCurrentSlide] = useState(1);
+  let [arrSlides, setArrSlides] = useState(slidesData);
+  let SlidesComponent = arrSlides.map(slide => <Slide key={slide.id} head={slide.head} text={slide.text} btnText={slide.btnText} display={slide.display}/>);
   
-  // let slideIndex = 1;
-  // function showSlides(n:number){
-
-  //   if (n > arrSlides.length) {
-  //       slideIndex = 1;
-  //   }
-  //   if (n < 1 ) {
-  //       slideIndex = arrSlides.length;
-  //   }
-
-  //   arrSlides.forEach( (item) => item.display = 'none' );
-  //   arrSlides[slideIndex - 1].display = 'block';
-  // }
-const showSlides = () => {
-  setArrSlides(newArr);
-  console.log(newArr);
-}
   return (
     <SliderWrap>
       <div className="sliderTitle">LATEST</div>
-      <div className="arrow prev" onClick={showSlides}>&#706;</div>
-      <div className="arrow next">&#707;</div>
+      <div className="arrow prev" onClick={prevSlide}>&#706;</div>
+      <div className="arrow next" onClick={nextSlide}>&#707;</div>
       {SlidesComponent}
   </SliderWrap>
   )

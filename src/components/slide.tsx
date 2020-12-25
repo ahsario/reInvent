@@ -9,7 +9,6 @@ const SliderItem = styled.div`
   letter-spacing: -.02px;
   font-weight: 400;
   .sliderItemHead {
-    margin-top: 30px;
     font-size: 1.2rem;
   }
   .sliderItemText {
