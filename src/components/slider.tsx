@@ -7,7 +7,7 @@ const SliderWrap = styled.div`
   position: relative;
   margin-top: 50px;
   max-width: 450px;
-  height: 340px;
+  min-height: 340px;
   background-color: #161616;
   padding: 30px;
   box-sizing: border-box;

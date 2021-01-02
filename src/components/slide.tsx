@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from 'linaria/react';
 
 
-const SliderItem = styled.div`
+export const SliderItem = styled.div`
   display: ${(props: any) => props.display};
   font-size: 1rem;
   line-height: 1.5;
@@ -17,7 +17,7 @@ const SliderItem = styled.div`
   }
   .sliderItemButtonWrap {
     margin-top:10px;
-    max-width: 250px;
+    width: fit-content;
     background: linear-gradient(90deg, magenta, orange);
     padding-bottom: 3px;
     .sliderItemButton {

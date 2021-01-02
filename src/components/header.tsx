@@ -7,7 +7,6 @@ import Slider from './slider';
 const Head = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 100vh;
   
   `;
 
@@ -85,7 +84,7 @@ export const LinkButton = styled(Button)`
 `;
 
 export const RegButtonWrap = styled.div`
-  margin-top:10px;
+  margin-top: 10px;
   max-width: 250px;
   padding: 1rem;
   background: linear-gradient(90deg, magenta, orange);
@@ -99,7 +98,7 @@ export const RegButton = styled(Button)`
   box-sizing: border-box;
   background: linear-gradient(90deg, magenta, orange);
   transition: all .25s;
-
+  cursor: pointer;
   :hover {
     background-image: none;
     background-color: black;
@@ -127,6 +126,9 @@ const RegNow = styled.div`
     font-weight: 700;
     color: white;
   }
+  a {
+    margin-top: 80px;
+  }
   .colored {
     color: magenta;
   }
@@ -146,7 +148,7 @@ const Video = styled.div`
     object-fit: contain;
     height: 100%;
     width: 100%;
-    margin-top: -50px;
+    margin-top: -150px;
   }
 `;
 
@@ -175,16 +177,16 @@ return (
     />
     <NavBar top={scrollTop > 100 ? '0' : '-100px'}>
       <NavLinkWrap top={scrollTop > 100 ? '0' : '-100px'}>
-        <a>
+        <a href="https://reinvent.awsevents.com/?trk=direct">
           <img src="../../../src/image/logo.png" alt='logo' />
         </a>
         <BtnsWrap>
-          <a>
+          <a href="https://register.virtual.awsevents.com/?sc_icampaign=event_reInvent_RegisterNow&sc_ichannel=ha&sc_icontent=eventsite_reinvent20&sc_ioutcome=Strategic_Events&sc_iplace=evnav&trk=direct">
             <RegButtonWrap>
               <RegButton>Register Now</RegButton>
             </RegButtonWrap>
           </a>
-          <a>
+          <a href="https://virtual.awsevents.com/user/login?trk=direct">
             <LinkButtonWrap>
               <LinkButton>Log in</LinkButton>
             </LinkButtonWrap>
@@ -202,7 +204,7 @@ return (
         <img src="../../../src/image/bigLogo.png" alt="logo"/>
         <span className="colored">NOV. 30 – DEC. 18 & JAN. 12 – 14</span>
         <span>JOIN US FOR 200+ NEW SESSIONS IN JAN. 2021</span>
-        <a>
+        <a href="https://register.virtual.awsevents.com/?sc_icampaign=event_reInvent_RegisterNow&sc_ichannel=ha&sc_icontent=eventsite_reinvent20&sc_ioutcome=Strategic_Events&sc_iplace=evnav&trk=direct">
           <RegButtonWrap>
             <RegButton className="regButton">Register Now</RegButton>
           </RegButtonWrap>
