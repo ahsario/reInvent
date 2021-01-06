@@ -3,7 +3,7 @@ import { styled } from 'linaria/react';
 import { SliderItem } from './slide';
 import keyNotesData from './keyNotesData';
 
-const FirstCPWrap = styled.div`
+export const FirstCPWrap = styled.div`
   display: flex;
   justify-content: space-between;
   
@@ -28,7 +28,7 @@ const FirstCPWrap = styled.div`
     width: 50px;
     height: 50px;
     border: 3px solid white;
-    border-radius: 50px;
+    border-radius: 50%;
     text-align: center;
     font-size: 30px;
     line-height: 50px;
@@ -110,7 +110,7 @@ const FirstCPWrap = styled.div`
   }
 `;
 
-const NoteCardItem = styled(SliderItem)`
+export const NoteCardItem = styled(SliderItem)`
   display: block;
   position: relative;
   left: ${(props: any) => props.left+"%"};
@@ -132,6 +132,7 @@ interface IProps{
   head: string,
   text: string,
   img: string,
+  btnText: string,
 }
 
 const FirstCP: React.FC = () => {
@@ -146,7 +147,7 @@ const FirstCP: React.FC = () => {
     };
   });
   
-  const NoteCard: React.FC<IProps> = ({img, head, text}) => (
+  const NoteCard: React.FC<IProps> = ({img, head, text, btnText}) => (
     <NoteCardItem className="card" left={left}>
       <img src={img}/>
       <div className="note-text">
@@ -154,14 +155,14 @@ const FirstCP: React.FC = () => {
         <div className="sliderItemText">{text}</div>
         <a href="https://virtual.awsevents.com/user/login?trk=direct">
           <div className="sliderItemButtonWrap">
-            <div className="sliderItemButton">Watch Now</div>
+            <div className="sliderItemButton">{btnText}</div>
           </div>
         </a>
       </div>
     </NoteCardItem>
   );
 
-  let KeyNotesComponent = keyNotesData.map(note => <NoteCard key={note.id} head={note.head} text={note.text} img={note.img}/>);
+  let KeyNotesComponent = keyNotesData.map(note => <NoteCard key={note.id} head={note.head} text={note.text} img={note.img} btnText='Watch Now'/>);
   const toTheRight = () => {
     if ( left == 0 || left == -50) {
       setLeft(left-=100);
