@@ -1,0 +1,16 @@
+{
+    "parser": "babel-eslint",
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "airbnb",
+        "airbnb/hooks"
+    ],
+    "env": {
+        "browser": true
+    },
+    "rules": {
+        "for-direction": "off",
+        "linebreak-style": "off"
+    }
+}
