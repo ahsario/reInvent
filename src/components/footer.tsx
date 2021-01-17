@@ -40,6 +40,7 @@ const FooterWrap = styled.div`
           top: 5px;
           width: 50px;
           height: 50px;
+          padding-bottom: 5px;
           border: none;
           border-radius: 50px;
           background: linear-gradient(90deg,magenta,orange);

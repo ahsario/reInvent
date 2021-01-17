@@ -1,8 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { connect } from 'react-redux';
 import { styled } from 'linaria/react';
 import * as actions from '../actions';
 import Slider from './slider';
+import { myContext } from './app'
+import { NavLink } from 'react-router-dom';
 
 const Head = styled.div`
   display: flex;
@@ -12,13 +14,85 @@ const Head = styled.div`
 
 const Hamburger = styled.div`
   position: fixed;
-  z-index: 3;
-  left: 20px;
-  top: 20px;
-  width: 60px;
-  height: 30px;
-  background: url('../../../src/image/gamb.svg') no-repeat ;
-  background-size: contain;
+  z-index: 7;
+  .c-hamburger {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    width: 70px;
+    height: 69px;
+    font-size: 0;
+    text-indent: -9999px;
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+    :focus {
+      outline: none;
+      }
+    span {
+      display: block;
+      position: absolute;
+      top: 32px;
+      left: 18px;
+      right: 18px;
+      height: 3px;
+      background: white;
+      ::before, ::after {
+        position: absolute;
+        display: block;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-color: #fff;
+        content: "";
+      }
+      ::before {
+        top: -10px;
+      }
+      ::after {
+        bottom: -10px;
+      }
+    }
+  }
+  .c-hamburger--htx {
+    background-color: #000000;
+    span {
+      transition: background 0s 0.3s;
+      ::before, ::after {
+        transition-duration: 0.3s, 0.3s;
+        transition-delay: 0.3s, 0s;
+      }
+      ::before {
+        transition-property: top, transform;
+      }
+      ::after {
+        transition-property: bottom, transform;
+      }
+    }
+  }
+  .is-active {
+      background-color: #000000;
+      span {
+        background: none;
+        ::before {
+          top: 0;
+          transform: rotate(45deg);
+        }
+        ::after {
+          bottom: 0;
+          transform: rotate(-45deg);
+        }
+        ::before, ::after {
+          transition-delay: 0s, 0.3s;
+        }
+      }
+    }
+
 `;
 
 const NavBar = styled.div`
@@ -27,7 +101,7 @@ const NavBar = styled.div`
   padding-left: 100px;
   padding-right: 100px;
   top: ${(props: any) => props.top};
-  z-index: 2;
+  z-index: 6;
   width: 100%;
   box-sizing: border-box;
   height: 70px;
@@ -50,42 +124,55 @@ const NavLinkWrap = styled.div`
 const BtnsWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 300px;
 `;
 
 const Button = styled.div`
   font-family:"Ember", sans-serif;
-  text-align: center;
   color: white;
   font-size: 1.2rem;
   font-weight: 900;
   line-height: 2.4rem;
   letter-spacing: -.04rem;
   background-color: black;
+  cursor: pointer;
 `;
 
-export const LinkButtonWrap = styled.div`
-  margin-top:10px;
-  max-width: 250px;
-  background: linear-gradient(90deg, magenta, orange);
-  padding-bottom: 3px;
+const LinkButtonWrap = styled.div`
+  max-width: fit-content;
 `;
 
-export const LinkButton = styled(Button)`
-  padding-top:0.2rem;
+const LinkButton = styled(Button)`
+  padding-top: 0.2rem;
   padding-bottom: 3px;
-  font-weight:700;
-  line-height:1.6;
+  font-weight: 700;
+  line-height: 1.6;
   transition: all 0.1s linear 0.1s;
+  border-bottom: 3px solid;
+  border-image: linear-gradient(90deg, magenta, orange) 2;
 
   :hover {
     padding-bottom: 0;
+    margin-bottom: 3px;
   }
 `;
 
+export const LinkBtn = (text:string) => (
+  <LinkButtonWrap>
+    <LinkButton>{text}</LinkButton>
+  </LinkButtonWrap>
+);
+export const RegBtn = (text:string) => (
+  <RegButtonWrap>
+    <RegButton>{text}</RegButton>
+  </RegButtonWrap>
+);
+
 export const RegButtonWrap = styled.div`
   margin-top: 10px;
-  max-width: 250px;
+  max-width: fit-content;
+  white-space: nowrap;
   padding: 1rem;
   background: linear-gradient(90deg, magenta, orange);
   padding: 3px;
@@ -156,41 +243,53 @@ interface headerProps{
   tog():void
 }
 
+
+
 const Header: React.FC<headerProps> = ({ tog }) => {
   const listener = () => {
     setScrollTop(window.pageYOffset);
   }
 
   const [scrollTop, setScrollTop] = useState(window.pageYOffset);
+  
   useEffect(() => {
     window.addEventListener("scroll", listener);
     return () => {
       window.removeEventListener("scroll", listener);
     };
   });
+  const Hide = useContext(myContext);
+
+  const toClose = () => {
+    Hide.changePopUpState(!Hide.popUpState);
+    if (Hide.popUpState) {
+      document.querySelector(".c-hamburger").classList.remove("is-active")
+    } else {
+      document.querySelector(".c-hamburger").classList.add("is-active")
+    }
+  }
 
 return (
   <Head>
-    
     <Hamburger
-      onClick={tog}
-    />
-    <NavBar top={scrollTop > 100 ? '0' : '-100px'}>
-      <NavLinkWrap top={scrollTop > 100 ? '0' : '-100px'}>
+      onClick={toClose}
+    >
+      <button className="c-hamburger c-hamburger--htx">
+        <span>toggle menu</span>
+      </button>
+    </Hamburger>
+    
+    <NavBar top={scrollTop > 100 || Hide.popUpState ? '0' : '-100px'}>
+      <NavLinkWrap top={scrollTop > 100 || Hide.popUpState ? '0' : '-100px'}>
         <a href="https://reinvent.awsevents.com/?trk=direct">
           <img src="../../../src/image/logo.png" alt='logo' />
         </a>
         <BtnsWrap>
-          <a href="https://register.virtual.awsevents.com/?sc_icampaign=event_reInvent_RegisterNow&sc_ichannel=ha&sc_icontent=eventsite_reinvent20&sc_ioutcome=Strategic_Events&sc_iplace=evnav&trk=direct">
-            <RegButtonWrap>
-              <RegButton>Register Now</RegButton>
-            </RegButtonWrap>
-          </a>
-          <a href="https://virtual.awsevents.com/user/login?trk=direct">
-            <LinkButtonWrap>
-              <LinkButton>Log in</LinkButton>
-            </LinkButtonWrap>
-          </a>
+        <NavLink to="/registration">
+          {RegBtn('Register Now')}
+        </NavLink>
+          {LinkBtn('Log In')}
+          
         </BtnsWrap>
       </NavLinkWrap>
     </NavBar>

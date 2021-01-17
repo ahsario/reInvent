@@ -1,23 +1,24 @@
-import React from 'react';
-import CheckOut from './checkOut';
-import FirstCP from './firstContentPart';
-import Header from './header';
-import LastCP from './lastContentPart';
-import SecondCP from './secondContentPart';
-import ThirdCP from './thirdContentPart';
-import Footer from './footer';
+import React, { useState } from 'react';
+import RegPage from './regPage';
+import MainPage from './mainPage';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
-const App: React.FC = () => (
-  <div>
-    <Header/>
-    <FirstCP/>
-    <SecondCP/>
-    <ThirdCP/>
-    <LastCP/>
-    <CheckOut/>
-    <Footer/>
-  </div>
-);
+export const myContext = React.createContext<Partial<boolean>>(false);
 
+const App: React.FC = () => {
+  const [popUpState, changePopUpState] = useState(false);
+  const contextPopUpState = {popUpState, changePopUpState};
+
+  return(
+      <myContext.Provider value={contextPopUpState}>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={MainPage} />
+            <Route path="/registration" component={RegPage} />
+          </Switch>
+        </Router>
+      </myContext.Provider>
+  );
+}
 export default App;
