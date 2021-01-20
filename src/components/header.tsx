@@ -141,6 +141,8 @@ const Button = styled.div`
 
 const LinkButtonWrap = styled.div`
   max-width: fit-content;
+  white-space: nowrap;
+
 `;
 
 const LinkButton = styled(Button)`
@@ -158,24 +160,14 @@ const LinkButton = styled(Button)`
   }
 `;
 
-export const LinkBtn = (text:string) => (
-  <LinkButtonWrap>
-    <LinkButton>{text}</LinkButton>
-  </LinkButtonWrap>
-);
-export const RegBtn = (text:string) => (
-  <RegButtonWrap>
-    <RegButton>{text}</RegButton>
-  </RegButtonWrap>
-);
-
 export const RegButtonWrap = styled.div`
   margin-top: 10px;
-  max-width: fit-content;
+  max-width: ${(props: string) => props.width};
   white-space: nowrap;
   padding: 1rem;
   background: linear-gradient(90deg, magenta, orange);
   padding: 3px;
+  text-align: center;
   border-radius: 4rem;
 `;
 
@@ -192,6 +184,17 @@ export const RegButton = styled(Button)`
 
   }
 `;
+
+export const LinkBtn = (text:string) => (
+  <LinkButtonWrap>
+    <LinkButton>{text}</LinkButton>
+  </LinkButtonWrap>
+);
+export const RegBtn = (text:string, width:string = "fit-content") => (
+  <RegButtonWrap width={width}>
+    <RegButton>{text}</RegButton>
+  </RegButtonWrap>
+);
 
 const RegWrap = styled.div`
   display: flex;
@@ -220,10 +223,6 @@ const RegNow = styled.div`
     color: magenta;
   }
 
-  .regButton {
-    height:80px;
-    padding-top: 1.2rem;
-  }
 `;
 
 const Video = styled.div`
@@ -288,7 +287,9 @@ return (
         <NavLink to="/registration">
           {RegBtn('Register Now')}
         </NavLink>
-          {LinkBtn('Log In')}
+        <NavLink to="/login">
+          {LinkBtn('Log In')}  
+        </NavLink>  
           
         </BtnsWrap>
       </NavLinkWrap>
@@ -303,11 +304,9 @@ return (
         <img src="../../../src/image/bigLogo.png" alt="logo"/>
         <span className="colored">NOV. 30 – DEC. 18 & JAN. 12 – 14</span>
         <span>JOIN US FOR 200+ NEW SESSIONS IN JAN. 2021</span>
-        <a href="https://register.virtual.awsevents.com/?sc_icampaign=event_reInvent_RegisterNow&sc_ichannel=ha&sc_icontent=eventsite_reinvent20&sc_ioutcome=Strategic_Events&sc_iplace=evnav&trk=direct">
-          <RegButtonWrap>
-            <RegButton className="regButton">Register Now</RegButton>
-          </RegButtonWrap>
-        </a>
+        <NavLink to="/registration">
+          {RegBtn('Register Now')}
+        </NavLink>
       </RegNow>
       <Slider/>
     </RegWrap>

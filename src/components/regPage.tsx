@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from 'linaria/react';
-import { RegBtn } from './header'
+import { RegBtn } from './header';
 
 const RegPageWrap = styled.div`
   background: url('../../../src/image/regHeaderImage.jpg') no-repeat;
@@ -93,6 +93,12 @@ const RegPageWrap = styled.div`
     letter-spacing: -.02px;
     font-weight: 600;
   }
+  
+`;
+
+const FooterWrap = styled.div`
+  z-index: 1;
+  margin: 10% 0 0 7%;
   ul {
     display: flex;
     list-style: none;
@@ -119,10 +125,6 @@ const RegPageWrap = styled.div`
       }
     }
   }
-`;
-
-const FooterWrap = styled.div`
-  margin: 10% 0 5% 7%;
 `;
 
 export const FooterEnd: React.FC = () => (
@@ -156,7 +158,7 @@ const RegPage: React.FC = () => (
         <div className="form-heading2">Please enter your contact details</div>
       
         <div className="form-item"> 
-          <label >First Name</label>
+          <label >First Name</label> 
           <input type="text"></input>
         </div>
         <div className="form-item"> 

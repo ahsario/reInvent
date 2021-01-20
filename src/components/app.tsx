@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import RegPage from './regPage';
 import MainPage from './mainPage';
+import LogInPage from './loginPage';
+import ResetPasswordPage from './resetPassword';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
@@ -16,6 +18,8 @@ const App: React.FC = () => {
           <Switch>
             <Route exact path="/" component={MainPage} />
             <Route path="/registration" component={RegPage} />
+            <Route path="/login" component={LogInPage} />
+            <Route path="/reset" component={ResetPasswordPage} />
           </Switch>
         </Router>
       </myContext.Provider>
