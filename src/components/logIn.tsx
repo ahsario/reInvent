@@ -22,17 +22,22 @@ const LogInPageWrap = styled.div`
     color: #fff;
   }
   label {
+    display: block;
     margin-top: 30px;
+  }
+  .error-text {
+    margin-top: 5px;
+    color: #d20156;
   }
   input {
     display: block;
     width: 100%;
-    margin: 20px auto;
+    margin-top: 15px;
     padding: 10px 16px;
     font-size: 14px;
     font-family: Amazon Ember Medium;
     line-height: 17px;
-    border: solid 2px rgba(255, 255, 255, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.4);
     resize: none;
     border-radius: 20px;
     background-color: rgba(0, 0, 0, 0.3);
@@ -43,6 +48,10 @@ const LogInPageWrap = styled.div`
       border: solid 3px rgba(255, 255, 255, 1);
     }
   }
+  .error-input {
+    border-color: #d20156;
+  }
+  
   .small-text {
     margin: 30px 0;
     text-align: center;
